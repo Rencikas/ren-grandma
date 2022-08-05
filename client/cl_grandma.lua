@@ -1,4 +1,4 @@
-local QBCore = exports['JRP-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 function CreateGrandma()
     for k,v in pairs(Shared.location) do

@@ -1,4 +1,4 @@
-local QBCore = exports['JRP-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterNetEvent('ren-grandma:revive', function()
     local pData = QBCore.Functions.GetPlayer(source)

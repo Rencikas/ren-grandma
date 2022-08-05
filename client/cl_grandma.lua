@@ -3,7 +3,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 function CreateGrandma()
     for k,v in pairs(Shared.location) do
         local poly = Shared.location[k]
-        exports['JRP-target']:AddBoxZone('ren-grandma:add:BoxZone'..k, poly.coords, poly.length, poly.width, {
+        exports['qb-target']:AddBoxZone('ren-grandma:add:BoxZone'..k, poly.coords, poly.length, poly.width, {
                 name = 'ren-grandma:add:BoxZone'..k,
                 heading = poly.heading,
                 debugpoly = true,

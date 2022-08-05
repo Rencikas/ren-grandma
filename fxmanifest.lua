@@ -1,8 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-shared_scripts 'shared.lua'
-client_scripts 'cl_grandma.lua'
-server_scripts 'sv_grandma.lua'
+shared_script 'shared.lua'
+client_script 'client/cl_*'
+server_script 'server/sv_*'
 
-lua54 'yes'
+--cbb peuro

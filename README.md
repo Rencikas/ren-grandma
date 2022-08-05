@@ -9,6 +9,9 @@
 
 # Important
 Add this to qb-target/init.lua
+
+
+
 	**["Grandma"] = {
 		model = 'cs_mrs_thornhill',
 		coords = vector4(2439.04, 4976.61, 46.81, 271.05),

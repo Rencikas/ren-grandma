@@ -31,7 +31,7 @@ RegisterPed = function(cData)
     RegisterModel(cData.model)
     cData.handle = CreatePed(4, cData.model, cData.pos, cData.heading, false, true)
 
-    exports.wrp_target:AddTargetEntity(cData.handle, {
+    exports['qb-target']:AddTargetEntity(cData.handle, {
         options = {
             {
                 event = 'ren-grandma:request:help',

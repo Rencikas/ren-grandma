@@ -1,26 +1,10 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-function CreateGrandma()
-    for k,v in pairs(Shared.location) do
-        local poly = Shared.location[k]
-        exports['qb-target']:AddBoxZone('ren-grandma:add:BoxZone'..k, poly.coords, poly.length, poly.width, {
-                name = 'ren-grandma:add:BoxZone'..k,
-                heading = poly.heading,
-                debugpoly = true,
-                minZ = poly.minZ,
-                maxZ = poly.maxZ,
-                }, {
-                    options = {
-                    {
-                    event = 'ren-grandma:request:help',
-                    icon = 'fas fa-user-injured',
-                    label = 'Request help from grandma - '..Shared.GrandmaCost..'$',
-                },
-            },
-            distance = 3.0
-        })
+CreateThread(function()
+    for i = 1, #Shared.location do
+        RegisterPed(Shared.location[i])
     end
-end
+end)
 
 RegisterNetEvent("ren-grandma:request:help", function()
     if QBCore.Functions.GetPlayerData().metadata.isdead or QBCore.Functions.GetPlayerData().metadata.inlaststand then 
@@ -43,12 +27,35 @@ RegisterNetEvent("ren-grandma:request:help", function()
     end
 end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    CreateGrandma()
-end)
+RegisterPed = function(cData)
+    RegisterModel(cData.model)
+    cData.handle = CreatePed(4, cData.model, cData.pos, cData.heading, false, true)
 
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        CreateGrandma()
-    end
-end)
+    exports.wrp_target:AddTargetEntity(cData.handle, {
+        options = {
+            {
+                event = 'ren-grandma:request:help',
+                icon = 'fas fa-user-injured',
+                label = 'Request help from grandma - '..Shared.GrandmaCost..'$',
+            },
+        },
+        distance = 2
+    })
+
+    SetEntityAsMissionEntity(cData.handle, true, false)
+    FreezeEntityPosition(cData.handle, true)
+    SetPedCanRagdoll(cData.handle, false)
+    TaskSetBlockingOfNonTemporaryEvents(cData.handle, 1)
+    SetBlockingOfNonTemporaryEvents(cData.handle, 1)
+    SetPedFleeAttributes(cData.handle, 0, 0)
+    SetPedCombatAttributes(cData.handle, 17, 1)
+    SetEntityInvincible(cData.handle, true)
+    SetPedSeeingRange(cData.handle, 0)    
+end
+
+RegisterModel = function(model)
+	RequestModel(GetHashKey(model))
+	while not HasModelLoaded(GetHashKey(model)) do
+		Wait(1)
+	end
+end

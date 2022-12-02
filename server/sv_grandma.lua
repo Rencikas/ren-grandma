@@ -22,7 +22,7 @@ isNearGrandma = function(source)
 
     for i = 1, #Shared.location do
         local grandma = Shared.location[i]
-        local distance = #(pos - grandma.coords)
+        local distance = #(pos - grandma.pos)
         if distance < 5 then
             return true
         end
